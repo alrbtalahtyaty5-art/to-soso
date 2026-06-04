@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى سمية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        :root { --primary-color: #ff4d6d; --bg: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background: var(--bg); color: white; text-align: center; overflow-x: hidden; }
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a2e; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; }
+        .heart-loader { width: 100px; height: 100px; background: var(--primary-color); position: relative; transform: rotate(-45deg); animation: pulse 1s infinite; }
+        .heart-loader::before, .heart-loader::after { content: ''; width: 100px; height: 100px; background: var(--primary-color); border-radius: 50%; position: absolute; }
+        .heart-loader::before { top: -50px; left: 0; }
+        .heart-loader::after { left: 50px; top: 0; }
+        @keyframes pulse { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.1); } }
+        #login-screen { display: none; padding: 50px 20px; flex-direction: column; align-items: center; min-height: 100vh; justify-content: center; }
+        .profile-pic { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--primary-color); margin-bottom: 20px; object-fit: cover; }
+        input { padding: 12px; border-radius: 10px; border: none; width: 250px; text-align: center; margin-bottom: 20px; }
+        button { padding: 10px 30px; background: var(--primary-color); border: none; border-radius: 20px; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { transform: scale(1.05); }
+        #main-content { display: none; padding: 20px; opacity: 0; transition: 1s; }
+        .milestone { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin: 10px 0; border-right: 5px solid var(--primary-color); text-align: right; }
+        .counter-box { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .unit { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; min-width: 65px; }
+        .val { display: block; font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
+        .counter-desc { font-size: 0.9rem; color: #ddd; margin-bottom: 30px; padding: 0 10px; line-height: 1.5; }
+        .gallery img { width: 100%; border-radius: 15px; margin-bottom: 15px; }
+        #final-msg { display: none; margin-top: 20px; padding: 20px; background: rgba(255,77,109,0.3); border-radius: 15px; line-height: 1.8; animation: fadeIn 1s; text-align: right; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .heart-rain { position: fixed; color: var(--primary-color); pointer-events: none; animation: fly 4s linear infinite; z-index: 100; }
+        @keyframes fly { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div id="loader"><div class="heart-loader"></div><p style="margin-top:80px">ثواني يا روحي... ✨</p></div>
+
+    <div id="login-screen">
+        <img src="1.jpg" class="profile-pic">
+        <h2>جاهزة يا سمية؟ ❤️</h2>
+        <input type="text" id="pass" placeholder="اكتبي الباسورد هنا...">
+        <button onclick="check()">فتح القفل 🔓</button>
+    </div>
+
+    <div id="main-content">
+        <h2 style="color:var(--primary-color)">✨ بحبك يا سمية ✨</h2>
+        
+        <div style="margin: 20px 0;">
+            <div class="milestone"><b>10/10/2010:</b> دا اليوم اللي اتولدت فيه اجمل سوسو ف الدينا 🥹🌍🫶</div>
+            <div class="milestone"><b>23/4/2026:</b> دا كان اليوم اللي اتعرفت فيه علي اجمل انسانة ف الدنيا 😘🌚🥹🌍</div>
+            <div class="milestone"><b>20/5/2026:</b> اليوم دا اتكلمنا في اول مكالمة بينا 📞☺️❤</div>
+            <div class="milestone"><b>1/6/2026:</b> اليوم دا كان تحفة بجد سهرنا سوا طول الليل واكلمنا كول مرتين وبجد من اجمل الايام اللي بينا 😘🌚❤</div>
+            <div class="milestone"><b>3/6/2026:</b> دا كان اكتر يوم اتكلمنا كول فيه📞🌍🥹❤</div>
+        </div>
+
+        <h3>بداية عمري معاكي ❤️</h3>
+        <div class="counter-box">
+            <div class="unit"><span class="val" id="d">0</span> يوم</div>
+            <div class="unit"><span class="val" id="h">0</span> ساعة</div>
+            <div class="unit"><span class="val" id="m">0</span> دقيقة</div>
+            <div class="unit"><span class="val" id="s">0</span> ثانية</div>
+        </div>
+        <p class="counter-desc">العداد دا بداء لحظة م ارتبطنا وهيفضل يعد لاخر يوم ف حياتنا انشاء الله</p>
+
+        <h3 style="margin: 20px 0; color: #ffeb3b; font-size: 1.1rem;">دي احلي صور لاحلي سوسو ف الدنيا 💍🌚🌍❤</h3>
+        <div class="gallery" id="gallery"></div>
+
+        <button id="reveal-btn" style="margin-top: 20px; background: #4caf50;" onclick="showMsg()">دوس هنا يا ملوكا 💌</button>
+        
+        <div id="final-msg">
+            انا عايز اقولك انك اجمل حاجة حصلت في حياتي و عايزك تكوني عارفه اني بحبكك 🥹 وبحب هزارك وبحب ضحكتك 🥹☺️وبموت فيكي والله ويومي مش بيحلو غير بيكي 🥹🌚🌍❤i love you soso
+        </div>
+        <div style="height: 50px;"></div>
+    </div>
+
+    <audio id="music" src="music.mp3"></audio>
+
+    <script>
+        setTimeout(() => { document.getElementById('loader').style.display='none'; document.getElementById('login-screen').style.display='flex'; }, 2000);
+
+        function check() {
+            if(document.getElementById('pass').value.toLowerCase().trim() === "i love you somaya") {
+                document.getElementById('login-screen').style.display='none';
+                document.getElementById('main-content').style.display='block';
+                setTimeout(() => document.getElementById('main-content').style.opacity='1', 100);
+                let m = document.getElementById('music'); m.currentTime = 41; m.play();
+                setInterval(updateTimer, 1000);
+                setInterval(createHeart, 400);
+                loadImgs();
+            } else { alert("الباسورد غلط! 😂"); }
+        }
+
+        function updateTimer() {
+            const start = new Date("2026-04-23T04:17:00");
+            const diff = new Date() - start;
+            document.getElementById('d').innerText = Math.floor(diff / 86400000);
+            document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24);
+            document.getElementById('m').innerText = Math.floor((diff / 60000) % 60);
+            document.getElementById('s').innerText = Math.floor((diff / 1000) % 60);
+        }
+
+        function createHeart() {
+            const h = document.createElement('div'); h.innerHTML = '❤️'; h.className = 'heart-rain';
+            h.style.left = Math.random() * 100 + 'vw'; document.body.appendChild(h);
+            setTimeout(() => h.remove(), 4000);
+        }
+
+        function loadImgs() {
+            const g = document.getElementById('gallery');
+            for(let i=1; i<=8; i++) {
+                let img = document.createElement('img'); img.src = i + '.jpg';
+                img.onerror = () => img.remove(); g.appendChild(img);
+            }
+        }
+
+        function showMsg() {
+            document.getElementById('reveal-btn').style.display = 'none';
+            document.getElementById('final-msg').style.display = 'block';
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    </script>
+</body>
+                                                                                                                       </html>
